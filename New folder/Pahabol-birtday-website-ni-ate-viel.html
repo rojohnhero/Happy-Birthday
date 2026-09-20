@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Ate Viel! 🌹</title>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --rose-dark: #a62045;
@@ -23,7 +28,7 @@
 
     body {
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      font-family: 'Poppins', sans-serif;
       background: radial-gradient(ellipse at top, #ffe4eb 0%, #fad0dc 45%, #f7b7c8 100%);
       color: var(--text-main);
       display: flex;
@@ -31,12 +36,16 @@
       align-items: center;
       padding: 40px 16px 80px;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Decorative petals - CSS only, so no JavaScript is required */
+    /* Floating Petals Effect */
     .petals-container {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       overflow: hidden;
       z-index: 1;
@@ -45,97 +54,111 @@
     .petal {
       position: absolute;
       top: -10%;
-      width: 18px;
-      height: 24px;
-      background: linear-gradient(135deg, #ffc0cb, #e65c7b);
+      background: radial-gradient(circle at 30% 30%, #ffc0cb, #e65c7b);
       border-radius: 140% 0 140% 0;
-      opacity: .55;
-      box-shadow: 0 4px 8px rgba(0,0,0,.06);
-      animation: fall 9s linear infinite;
+      opacity: 0.85;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+      animation: fall linear infinite;
     }
-
-    .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
-    .petal:nth-child(2) { left: 14%; animation-delay: 2s; animation-duration: 11s; }
-    .petal:nth-child(3) { left: 25%; animation-delay: 4s; animation-duration: 8s; }
-    .petal:nth-child(4) { left: 37%; animation-delay: 1s; animation-duration: 10s; }
-    .petal:nth-child(5) { left: 48%; animation-delay: 5s; animation-duration: 12s; }
-    .petal:nth-child(6) { left: 59%; animation-delay: 2.5s; animation-duration: 9s; }
-    .petal:nth-child(7) { left: 70%; animation-delay: 4.5s; animation-duration: 11s; }
-    .petal:nth-child(8) { left: 81%; animation-delay: 1.5s; animation-duration: 8s; }
-    .petal:nth-child(9) { left: 92%; animation-delay: 3s; animation-duration: 10s; }
 
     @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: .6; }
-      50% { transform: translateY(50vh) rotate(180deg) translateX(25px); }
-      100% { transform: translateY(110vh) rotate(360deg) translateX(-25px); opacity: .12; }
+      0% {
+        transform: translateY(0) rotate(0deg) translateX(0);
+        opacity: 0.9;
+      }
+      50% {
+        transform: translateY(50vh) rotate(180deg) translateX(25px);
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg) translateX(-25px);
+        opacity: 0.2;
+      }
     }
 
-    /* Quick Look compatible music player.
-       Native controls are intentional: Quick Look may not execute JavaScript. */
-    .song-player {
+    /* Song Player Floating Pill */
+    .song-pill-btn {
       position: fixed;
-      top: 14px;
-      right: 14px;
-      z-index: 99;
-      width: min(360px, calc(100vw - 28px));
-      background: rgba(255,255,255,.96);
+      top: 18px;
+      right: 18px;
+      background: rgba(255, 255, 255, 0.94);
       border: 1.5px solid var(--rose-primary);
-      border-radius: 22px;
-      padding: 9px 12px;
-      box-shadow: 0 6px 18px rgba(230,73,117,.22);
-    }
-
-    .song-title {
-      color: var(--rose-dark);
-      font-size: .78rem;
+      border-radius: 50px;
+      padding: 9px 20px;
+      font-size: 0.85rem;
       font-weight: 600;
-      text-align: center;
-      margin-bottom: 5px;
+      color: var(--rose-dark);
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 6px 18px rgba(230, 73, 117, 0.22);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .song-player audio {
-      display: block;
-      width: 100%;
-      height: 36px;
+    .song-pill-btn:hover {
+      background: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 8px 22px rgba(230, 73, 117, 0.32);
     }
 
+    .song-pill-btn.playing {
+      background: var(--rose-primary);
+      color: #fff;
+      border-color: var(--rose-dark);
+      animation: pulseBtn 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseBtn {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(230, 73, 117, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(230, 73, 117, 0); }
+    }
+
+    /* Main Greeting Card */
     .card {
       position: relative;
       z-index: 10;
       max-width: 660px;
       width: 100%;
-      background: rgba(255,255,255,.95);
+      background: rgba(255, 255, 255, 0.93);
+      backdrop-filter: blur(14px);
       border-radius: 32px;
       padding: 48px 34px;
       text-align: center;
-      box-shadow:
-        0 24px 50px rgba(166,32,69,.18),
-        0 4px 12px rgba(0,0,0,.04);
-      border: 2px solid rgba(255,255,255,.95);
+      box-shadow: 0 24px 50px rgba(166, 32, 69, 0.18),
+                  0 4px 12px rgba(0, 0, 0, 0.04);
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      animation: popIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .card::before {
-      content: "";
+      content: '';
       position: absolute;
       inset: 12px;
       border: 1.5px dashed var(--rose-primary);
       border-radius: 24px;
-      opacity: .38;
+      opacity: 0.38;
       pointer-events: none;
     }
 
+    @keyframes popIn {
+      0% { opacity: 0; transform: translateY(35px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
     .title-cursive {
-      font-family: "Brush Script MT", "Segoe Script", cursive;
+      font-family: 'Great Vibes', cursive;
       font-size: 4.6rem;
       color: var(--rose-primary);
       line-height: 1.05;
-      text-shadow: 2px 4px 8px rgba(230,73,117,.22);
+      text-shadow: 2px 4px 8px rgba(230, 73, 117, 0.22);
       margin-top: 5px;
       margin-bottom: 2px;
     }
 
     .name-banner {
-      font-family: Georgia, "Times New Roman", serif;
+      font-family: 'Playfair Display', serif;
       font-size: 2.7rem;
       font-weight: 800;
       color: var(--rose-dark);
@@ -160,17 +183,15 @@
     .divider i {
       font-size: 1.15rem;
       color: var(--rose-primary);
-      font-style: normal;
     }
 
+    /* Letter Parchment Box */
     .letter-card {
       background: #fffbfa;
       border-radius: 20px;
       padding: 30px 26px;
       border: 1px solid #ffd8e1;
-      box-shadow:
-        inset 0 2px 8px rgba(166,32,69,.03),
-        0 6px 18px rgba(0,0,0,.02);
+      box-shadow: inset 0 2px 8px rgba(166, 32, 69, 0.03), 0 6px 18px rgba(0,0,0,0.02);
       position: relative;
       text-align: left;
       line-height: 1.85;
@@ -178,14 +199,8 @@
       color: #4b2633;
     }
 
-    .letter-greeting,
-    .letter-footer,
-    .gallery-title,
-    .portrait-caption {
-      font-family: "Brush Script MT", "Segoe Script", cursive;
-    }
-
     .letter-greeting {
+      font-family: 'Dancing Script', cursive;
       font-size: 1.75rem;
       color: var(--rose-dark);
       margin-bottom: 14px;
@@ -195,16 +210,21 @@
     .letter-body {
       white-space: pre-line;
       text-align: justify;
+      hyphens: auto;
     }
 
     .letter-footer {
       margin-top: 22px;
       text-align: right;
+      font-family: 'Dancing Script', cursive;
       font-size: 1.55rem;
       color: var(--rose-dark);
       font-weight: bold;
     }
 
+    /* =======================================
+       PORTRAIT / VERTICAL PHOTO STREAM
+    ======================================= */
     .gallery-section {
       margin-top: 50px;
       text-align: center;
@@ -212,6 +232,7 @@
     }
 
     .gallery-title {
+      font-family: 'Dancing Script', cursive;
       font-size: 2.3rem;
       color: var(--rose-dark);
       margin-bottom: 6px;
@@ -219,7 +240,7 @@
     }
 
     .gallery-sub {
-      font-size: .9rem;
+      font-size: 0.9rem;
       color: #7a4657;
       margin-bottom: 30px;
     }
@@ -233,13 +254,21 @@
     }
 
     .portrait-card {
-      background: #fff;
+      background: #ffffff;
       padding: 14px;
       border-radius: 22px;
-      box-shadow: 0 12px 28px rgba(166,32,69,.12);
+      box-shadow: 0 12px 28px rgba(166, 32, 69, 0.12);
       border: 1.5px solid #fce3e9;
+      transition: all 0.35s ease;
+      cursor: pointer;
       width: 100%;
       max-width: 480px;
+    }
+
+    .portrait-card:hover {
+      transform: translateY(-6px) scale(1.015);
+      box-shadow: 0 18px 36px rgba(166, 32, 69, 0.22);
+      border-color: var(--rose-primary);
     }
 
     .portrait-card img {
@@ -251,6 +280,7 @@
       display: block;
     }
 
+    /* Featured final card (Paboritong pose) */
     .portrait-card.featured {
       border: 2px solid var(--rose-primary);
       padding-bottom: 18px;
@@ -258,67 +288,104 @@
     }
 
     .portrait-caption {
+      font-family: 'Dancing Script', cursive;
       font-size: 1.45rem;
       color: var(--rose-dark);
       margin-top: 14px;
       font-weight: bold;
     }
 
-    /* Each image opens directly in the browser/Quick Look when tapped.
-       No JavaScript lightbox is used because Quick Look is not a full browser. */
-    .portrait-card a {
-      display: block;
-      text-decoration: none;
+    /* Lightbox Modal */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(45, 15, 25, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
 
-    .portrait-card a:active {
-      opacity: .85;
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      border: 3px solid #fff;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 25px;
+      right: 30px;
+      font-size: 2.2rem;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.2s;
+    }
+    .lightbox-close:hover {
+      transform: scale(1.2);
+    }
+
+    /* Local Music Player - hidden while using the same music button */
+    #birthdayMusic {
+      position: fixed;
+      width: 1px;
+      height: 1px;
+      left: -10px;
+      bottom: -10px;
+      opacity: 0;
+      pointer-events: none;
+      border: 0;
     }
 
     @media (max-width: 600px) {
-      body { padding: 78px 10px 55px; }
       .card { padding: 34px 18px; border-radius: 24px; }
       .title-cursive { font-size: 3.5rem; }
       .name-banner { font-size: 2.1rem; }
-      .letter-card { padding: 22px 16px; font-size: .95rem; }
+      .letter-card { padding: 22px 16px; font-size: 0.95rem; }
       .gallery-title { font-size: 1.85rem; }
       .portrait-card { padding: 10px; border-radius: 18px; }
       .portrait-card img { border-radius: 12px; }
-      .song-player {
-        top: 9px;
-        right: 9px;
-        width: calc(100vw - 18px);
-      }
+      .song-pill-btn { top: 12px; right: 12px; padding: 7px 14px; font-size: 0.78rem; }
     }
   </style>
 </head>
-
 <body>
 
-  <div class="petals-container" aria-hidden="true">
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
-  </div>
+  <!-- Floating Petals Layer -->
+  <div class="petals-container" id="petals"></div>
 
-  <!--
-    QUICK LOOK MUSIC:
-    Keep "Happy Birthday Guitar Instrumental.mp3" in the SAME folder
-    as this HTML file.
+  <button id="musicBtn" class="song-pill-btn" onclick="toggleMusic()">
+    <span id="musicIcon">🎸</span>
+    <span id="musicText">Play: Happy Birthday Guitar 🎵</span>
+</button>
 
-    This uses the iPhone's native audio player instead of JavaScript.
-    That is necessary because Quick Look may not run onclick()/JavaScript.
-  -->
-  <div class="song-player">
-    <div class="song-title">🎸 Happy Birthday Guitar 🎵</div>
-    <audio controls preload="metadata" loop>
-      <source src="./Happy Birthday Guitar Instrumental.mp3" type="audio/mpeg">
-      Your iPhone does not support this audio player.
-    </audio>
-  </div>
 
+
+  <!-- Local birthday music file -->
+  <audio id="birthdayMusic" loop preload="auto">
+    <source src="./Happy Birthday Guitar Instrumental.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Main Greeting Card -->
   <main class="card">
-
     <h1 class="title-cursive">Happy Birthday</h1>
     <h2 class="name-banner">Ate Viel!</h2>
 
@@ -328,105 +395,203 @@
       <span></span>
     </div>
 
+    <!-- The Personal Letter -->
     <div class="letter-card">
       <div class="letter-greeting">Hiii ateee, Viieeellll! 💕</div>
-
       <p class="letter-body">Blessed and Happy birthday sayoooo. 27 na ang eabab, like ate gila said, pramis wag ka muna asawa i say HAAHAHH! 😂
 
-Andami ko pang natutunan sayoo atee and thank you din po for being my ate hindi man sa dugo pero ramdam ko po yung pagiging ate mo sakin.
+Andami ko pang natutunan sayoo atee and thank you din po for being my ate hindi man sa dugo pero ramdam ko po yung pagiging ate mo sakin. 
 
-Thank you sa mga payo, sa paalala at pag saway sakin sa lahat ng bagay. Pag-akay, pag-tulong at sa kulitan lagi HAHAHAHA! Maliban sa Lord, eh ikaw din po nasasabihan ko kapag may problema at nakakahingi ng tulong kapag kailangan.
+Thank you sa mga payo, sa paalala at pag saway sakin sa lahat ng bagay. Pag-akay, pag-tulong at sa kulitan lagi HAHAHAHA! Maliban sa Lord, eh ikaw din po nasasabihan ko kapag may problema at nakakahingi ng tulong kapag kailangan. 
 
-Always ka pong nasa prayer ko, dw pagpapalain ka pa po ng Lord palagi sa work, sa ministry at sa lahat ng bagay. Super thankful po ako sa Lord kase may ate viel akong naiiyakan minsan lovee lots atee &lt;3, andito din kamii kapag need mo din ng help.
+Always ka pong nasa prayer ko, dw pagpapalain ka pa po ng Lord palagi sa work, sa ministry at sa lahat ng bagay. Super thankful po ako sa Lord kase may ate viel akong naiiyakan minsan lovee lots atee &lt;3, andito din kamii kapag need mo din ng help. 
 
 Happy birthday poo ulitt and God bless youu and your family! 🤍</p>
-
       <div class="letter-footer">Love you lots, Ate! 💐✨</div>
     </div>
 
+    <!-- Photo Stream (Shuffled + Favorite Pose Last) -->
     <section class="gallery-section">
-
-      <div class="divider" style="margin-bottom:12px;">
+      <div class="divider" style="margin-bottom: 12px;">
         <span></span>
         <i>✨</i>
         <span></span>
       </div>
-
-      <h3 class="gallery-title">
-        Moments with Ate Viel (pero solo pic nya ang iba) 📸
-      </h3>
-
-      <p class="gallery-sub">
-        Tap any photo to view full size!
-      </p>
+      <h3 class="gallery-title">Moments with Ate Viel (pero solo pic nya ang iba) 📸</h3>
+      <p class="gallery-sub">Tap any photo to view full size!</p>
 
       <div class="portrait-stream">
-
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1JkDayR8odkG2vExcAefN6040JI_cgx1T/view?usp=sharing">
-            <img src="https://drive.google.com/file/d/1JkDayR8odkG2vExcAefN6040JI_cgx1T/view?usp=sharing" alt="">
-          </a>
+        <!-- 1. Shuffled: Duet with cake smile -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./1.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1VLYTXa7oKzemLJsIYb0PWyFu2lz1Eens/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1VLYTXa7oKzemLJsIYb0PWyFu2lz1Eens/view?usp=drive_link" alt="">
-          </a>
+        <!-- 2. Shuffled: Sunset walking -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./2.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1oDu6eWV4mnwynV9llFhRnclE24-Gaep_/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1oDu6eWV4mnwynV9llFhRnclE24-Gaep_/view?usp=drive_link" alt="">
-          </a>
+        <!-- 3. Shuffled: Food plate peace sign -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./3.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/19hL4pHTxxvIrXMJbpZHN-gfhMaprNFfh/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/19hL4pHTxxvIrXMJbpZHN-gfhMaprNFfh/view?usp=drive_link" alt="">
-          </a>
+        <!-- 4. Shuffled: Outdoor trees smile -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./4.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/175lGJrN83sAzIWNSK3AZHnErWzHXAGzu/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/175lGJrN83sAzIWNSK3AZHnErWzHXAGzu/view?usp=drive_link" alt="">
-          </a>
+        <!-- 5. Shuffled: Formal/Sweet together photo -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./5.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1s59av9Omib7-HNkw-fxynPdu1P6a2ukm/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1s59av9Omib7-HNkw-fxynPdu1P6a2ukm/view?usp=drive_link" alt="">
-          </a>
+        <!-- 6. Shuffled: Street food isaw laugh -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./6.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1eiCs-O0BHC4EKQ23MBonilvJrDLmi_3_/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1eiCs-O0BHC4EKQ23MBonilvJrDLmi_3_/view?usp=drive_link" alt="">
-          </a>
+        <!-- 8. Shuffled: Night car selfie -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./8.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1E2XUK9cvr-hPOrmJ8cc_-qOYO2HzQUaL/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1E2XUK9cvr-hPOrmJ8cc_-qOYO2HzQUaL/view?usp=drive_link" alt="">
-          </a>
+        <!-- 9. Shuffled: Wacky peace sign together with cake -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./9.jpg" alt="" />
         </div>
 
-        <div class="portrait-card">
-          <a href="https://drive.google.com/file/d/1XAAwphZFaoUqXcDXxR4ZaEvpwdBHBCPw/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1XAAwphZFaoUqXcDXxR4ZaEvpwdBHBCPw/view?usp=drive_link" alt="">
-          </a>
+        <!-- 10. Shuffled: Casual peace sign -->
+        <div class="portrait-card" onclick="openLightbox(this)">
+          <img src="./10.jpg" alt="" />
         </div>
 
-        <div class="portrait-card featured">
-          <a href="https://drive.google.com/file/d/1Mq3SPTRjLtlGaLLYxkoWC6yPV7GNF7T7/view?usp=drive_link">
-            <img src="https://drive.google.com/file/d/1Mq3SPTRjLtlGaLLYxkoWC6yPV7GNF7T7/view?usp=drive_link" alt="Ate Viel Duckface">
-          </a>
+        <!-- FINAL: Ang Paboritong Pose (The Grand Finale!) -->
+        <div class="portrait-card featured" onclick="openLightbox(this)">
+          <img src="./7.jpg" alt="Ate Viel Duckface" />
           <div class="portrait-caption">Ang Paboritong Pose HAHA 😂</div>
         </div>
-
       </div>
     </section>
-
   </main>
 
+  <!-- Lightbox Modal Pop-up -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="Expanded View" />
+  </div>
+
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    // 1. Floating Rose Petals
+    const petalsContainer = document.getElementById('petals');
+    const petalCount = 26;
+
+    for (let i = 0; i < petalCount; i++) {
+      const petal = document.createElement('div');
+      petal.classList.add('petal');
+      
+      const size = Math.random() * 16 + 12;
+      const left = Math.random() * 100;
+      const duration = Math.random() * 5 + 6;
+      const delay = Math.random() * 5;
+
+      petal.style.width = `${size}px`;
+      petal.style.height = `${size * 1.3}px`;
+      petal.style.left = `${left}%`;
+      petal.style.animationDuration = `${duration}s`;
+      petal.style.animationDelay = `${delay}s`;
+
+      petalsContainer.appendChild(petal);
+    }
+
+    // 2. Soft Confetti Burst on Page Load
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        confetti({
+          particleCount: 75,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#e64975', '#a62045', '#ffd2dc', '#d4af37', '#ffffff']
+        });
+      }, 700);
+    });
+
+    // 3. Local birthday guitar instrumental
+    // The HTML and the music file must be in the same folder.
+    const birthdayMusic = document.getElementById('birthdayMusic');
+    let isPlaying = false;
+
+    async function toggleMusic() {
+      if (!birthdayMusic) return;
+
+      if (birthdayMusic.paused) {
+        try {
+          await birthdayMusic.play();
+          updateBtn(true);
+
+          confetti({
+            particleCount: 60,
+            spread: 60,
+            origin: { y: 0.5 },
+            colors: ['#e64975', '#ffd2dc', '#d4af37']
+          });
+        } catch (error) {
+          console.error('Local music playback failed:', error);
+          alert('Hindi ma-play ang music. Siguraduhing ang file na "Happy Birthday Guitar Instrumental.mp3" ay nasa same folder ng HTML.');
+          updateBtn(false);
+        }
+      } else {
+        birthdayMusic.pause();
+        updateBtn(false);
+      }
+    }
+
+    birthdayMusic.addEventListener('play', () => updateBtn(true));
+    birthdayMusic.addEventListener('pause', () => updateBtn(false));
+    birthdayMusic.addEventListener('ended', () => updateBtn(false));
+
+    function updateBtn(playing) {
+      isPlaying = playing;
+      const btn = document.getElementById('musicBtn');
+      const text = document.getElementById('musicText');
+      const icon = document.getElementById('musicIcon');
+
+      if (playing) {
+        btn.classList.add('playing');
+        text.textContent = 'Pause: Guitar Melody ⏸️';
+        icon.textContent = '🎶';
+      } else {
+        btn.classList.remove('playing');
+        text.textContent = 'Play: Happy Birthday Guitar 🎵';
+        icon.textContent = '🎸';
+      }
+    }
+
+    // 4. Lightbox Photo Pop-up
+    function openLightbox(el) {
+      const img = el.querySelector('img');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      
+      lightboxImg.src = img.src;
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    // Show a clear fallback if an image filename is wrong/missing.
+    document.querySelectorAll('.portrait-card img').forEach((img) => {
+      img.addEventListener('error', () => {
+        img.alt = 'Image not found: ' + img.getAttribute('src');
+        img.style.minHeight = '120px';
+        img.style.background = '#fff0f3';
+      });
+    });
+  </script>
 </body>
 </html>
