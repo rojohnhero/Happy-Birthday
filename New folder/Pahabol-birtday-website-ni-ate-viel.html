@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="tl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Ate Viel! 🌹</title>
+
+  <style>
+    :root {
+      --rose-dark: #a62045;
+      --rose-primary: #e64975;
+      --rose-soft: #ffd2dc;
+      --rose-bg: #fff0f3;
+      --gold: #d4af37;
+      --text-main: #42212d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: radial-gradient(ellipse at top, #ffe4eb 0%, #fad0dc 45%, #f7b7c8 100%);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px 80px;
+      overflow-x: hidden;
+    }
+
+    /* Decorative petals - CSS only, so no JavaScript is required */
+    .petals-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      width: 18px;
+      height: 24px;
+      background: linear-gradient(135deg, #ffc0cb, #e65c7b);
+      border-radius: 140% 0 140% 0;
+      opacity: .55;
+      box-shadow: 0 4px 8px rgba(0,0,0,.06);
+      animation: fall 9s linear infinite;
+    }
+
+    .petal:nth-child(1) { left: 5%; animation-delay: 0s; }
+    .petal:nth-child(2) { left: 14%; animation-delay: 2s; animation-duration: 11s; }
+    .petal:nth-child(3) { left: 25%; animation-delay: 4s; animation-duration: 8s; }
+    .petal:nth-child(4) { left: 37%; animation-delay: 1s; animation-duration: 10s; }
+    .petal:nth-child(5) { left: 48%; animation-delay: 5s; animation-duration: 12s; }
+    .petal:nth-child(6) { left: 59%; animation-delay: 2.5s; animation-duration: 9s; }
+    .petal:nth-child(7) { left: 70%; animation-delay: 4.5s; animation-duration: 11s; }
+    .petal:nth-child(8) { left: 81%; animation-delay: 1.5s; animation-duration: 8s; }
+    .petal:nth-child(9) { left: 92%; animation-delay: 3s; animation-duration: 10s; }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg) translateX(0); opacity: .6; }
+      50% { transform: translateY(50vh) rotate(180deg) translateX(25px); }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(-25px); opacity: .12; }
+    }
+
+    /* Quick Look compatible music player.
+       Native controls are intentional: Quick Look may not execute JavaScript. */
+    .song-player {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 99;
+      width: min(360px, calc(100vw - 28px));
+      background: rgba(255,255,255,.96);
+      border: 1.5px solid var(--rose-primary);
+      border-radius: 22px;
+      padding: 9px 12px;
+      box-shadow: 0 6px 18px rgba(230,73,117,.22);
+    }
+
+    .song-title {
+      color: var(--rose-dark);
+      font-size: .78rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .song-player audio {
+      display: block;
+      width: 100%;
+      height: 36px;
+    }
+
+    .card {
+      position: relative;
+      z-index: 10;
+      max-width: 660px;
+      width: 100%;
+      background: rgba(255,255,255,.95);
+      border-radius: 32px;
+      padding: 48px 34px;
+      text-align: center;
+      box-shadow:
+        0 24px 50px rgba(166,32,69,.18),
+        0 4px 12px rgba(0,0,0,.04);
+      border: 2px solid rgba(255,255,255,.95);
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1.5px dashed var(--rose-primary);
+      border-radius: 24px;
+      opacity: .38;
+      pointer-events: none;
+    }
+
+    .title-cursive {
+      font-family: "Brush Script MT", "Segoe Script", cursive;
+      font-size: 4.6rem;
+      color: var(--rose-primary);
+      line-height: 1.05;
+      text-shadow: 2px 4px 8px rgba(230,73,117,.22);
+      margin-top: 5px;
+      margin-bottom: 2px;
+    }
+
+    .name-banner {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2.7rem;
+      font-weight: 800;
+      color: var(--rose-dark);
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 8px 0 26px;
+    }
+
+    .divider span {
+      height: 1.5px;
+      width: 55px;
+      background: linear-gradient(to right, transparent, var(--rose-primary), transparent);
+    }
+
+    .divider i {
+      font-size: 1.15rem;
+      color: var(--rose-primary);
+      font-style: normal;
+    }
+
+    .letter-card {
+      background: #fffbfa;
+      border-radius: 20px;
+      padding: 30px 26px;
+      border: 1px solid #ffd8e1;
+      box-shadow:
+        inset 0 2px 8px rgba(166,32,69,.03),
+        0 6px 18px rgba(0,0,0,.02);
+      position: relative;
+      text-align: left;
+      line-height: 1.85;
+      font-size: 1.02rem;
+      color: #4b2633;
+    }
+
+    .letter-greeting,
+    .letter-footer,
+    .gallery-title,
+    .portrait-caption {
+      font-family: "Brush Script MT", "Segoe Script", cursive;
+    }
+
+    .letter-greeting {
+      font-size: 1.75rem;
+      color: var(--rose-dark);
+      margin-bottom: 14px;
+      font-weight: bold;
+    }
+
+    .letter-body {
+      white-space: pre-line;
+      text-align: justify;
+    }
+
+    .letter-footer {
+      margin-top: 22px;
+      text-align: right;
+      font-size: 1.55rem;
+      color: var(--rose-dark);
+      font-weight: bold;
+    }
+
+    .gallery-section {
+      margin-top: 50px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .gallery-title {
+      font-size: 2.3rem;
+      color: var(--rose-dark);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .gallery-sub {
+      font-size: .9rem;
+      color: #7a4657;
+      margin-bottom: 30px;
+    }
+
+    .portrait-stream {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+      width: 100%;
+    }
+
+    .portrait-card {
+      background: #fff;
+      padding: 14px;
+      border-radius: 22px;
+      box-shadow: 0 12px 28px rgba(166,32,69,.12);
+      border: 1.5px solid #fce3e9;
+      width: 100%;
+      max-width: 480px;
+    }
+
+    .portrait-card img {
+      width: 100%;
+      height: auto;
+      max-height: 600px;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    .portrait-card.featured {
+      border: 2px solid var(--rose-primary);
+      padding-bottom: 18px;
+      background: #fffafa;
+    }
+
+    .portrait-caption {
+      font-size: 1.45rem;
+      color: var(--rose-dark);
+      margin-top: 14px;
+      font-weight: bold;
+    }
+
+    /* Each image opens directly in the browser/Quick Look when tapped.
+       No JavaScript lightbox is used because Quick Look is not a full browser. */
+    .portrait-card a {
+      display: block;
+      text-decoration: none;
+    }
+
+    .portrait-card a:active {
+      opacity: .85;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 78px 10px 55px; }
+      .card { padding: 34px 18px; border-radius: 24px; }
+      .title-cursive { font-size: 3.5rem; }
+      .name-banner { font-size: 2.1rem; }
+      .letter-card { padding: 22px 16px; font-size: .95rem; }
+      .gallery-title { font-size: 1.85rem; }
+      .portrait-card { padding: 10px; border-radius: 18px; }
+      .portrait-card img { border-radius: 12px; }
+      .song-player {
+        top: 9px;
+        right: 9px;
+        width: calc(100vw - 18px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="petals-container" aria-hidden="true">
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+    <div class="petal"></div><div class="petal"></div><div class="petal"></div>
+  </div>
+
+  <!--
+    QUICK LOOK MUSIC:
+    Keep "Happy Birthday Guitar Instrumental.mp3" in the SAME folder
+    as this HTML file.
+
+    This uses the iPhone's native audio player instead of JavaScript.
+    That is necessary because Quick Look may not run onclick()/JavaScript.
+  -->
+  <div class="song-player">
+    <div class="song-title">🎸 Happy Birthday Guitar 🎵</div>
+    <audio controls preload="metadata" loop>
+      <source src="./Happy Birthday Guitar Instrumental.mp3" type="audio/mpeg">
+      Your iPhone does not support this audio player.
+    </audio>
+  </div>
+
+  <main class="card">
+
+    <h1 class="title-cursive">Happy Birthday</h1>
+    <h2 class="name-banner">Ate Viel!</h2>
+
+    <div class="divider">
+      <span></span>
+      <i>🌸</i>
+      <span></span>
+    </div>
+
+    <div class="letter-card">
+      <div class="letter-greeting">Hiii ateee, Viieeellll! 💕</div>
+
+      <p class="letter-body">Blessed and Happy birthday sayoooo. 27 na ang eabab, like ate gila said, pramis wag ka muna asawa i say HAAHAHH! 😂
+
+Andami ko pang natutunan sayoo atee and thank you din po for being my ate hindi man sa dugo pero ramdam ko po yung pagiging ate mo sakin.
+
+Thank you sa mga payo, sa paalala at pag saway sakin sa lahat ng bagay. Pag-akay, pag-tulong at sa kulitan lagi HAHAHAHA! Maliban sa Lord, eh ikaw din po nasasabihan ko kapag may problema at nakakahingi ng tulong kapag kailangan.
+
+Always ka pong nasa prayer ko, dw pagpapalain ka pa po ng Lord palagi sa work, sa ministry at sa lahat ng bagay. Super thankful po ako sa Lord kase may ate viel akong naiiyakan minsan lovee lots atee &lt;3, andito din kamii kapag need mo din ng help.
+
+Happy birthday poo ulitt and God bless youu and your family! 🤍</p>
+
+      <div class="letter-footer">Love you lots, Ate! 💐✨</div>
+    </div>
+
+    <section class="gallery-section">
+
+      <div class="divider" style="margin-bottom:12px;">
+        <span></span>
+        <i>✨</i>
+        <span></span>
+      </div>
+
+      <h3 class="gallery-title">
+        Moments with Ate Viel (pero solo pic nya ang iba) 📸
+      </h3>
+
+      <p class="gallery-sub">
+        Tap any photo to view full size!
+      </p>
+
+      <div class="portrait-stream">
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1JkDayR8odkG2vExcAefN6040JI_cgx1T/view?usp=sharing">
+            <img src="https://drive.google.com/file/d/1JkDayR8odkG2vExcAefN6040JI_cgx1T/view?usp=sharing" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1VLYTXa7oKzemLJsIYb0PWyFu2lz1Eens/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1VLYTXa7oKzemLJsIYb0PWyFu2lz1Eens/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1oDu6eWV4mnwynV9llFhRnclE24-Gaep_/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1oDu6eWV4mnwynV9llFhRnclE24-Gaep_/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/19hL4pHTxxvIrXMJbpZHN-gfhMaprNFfh/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/19hL4pHTxxvIrXMJbpZHN-gfhMaprNFfh/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/175lGJrN83sAzIWNSK3AZHnErWzHXAGzu/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/175lGJrN83sAzIWNSK3AZHnErWzHXAGzu/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1s59av9Omib7-HNkw-fxynPdu1P6a2ukm/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1s59av9Omib7-HNkw-fxynPdu1P6a2ukm/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1eiCs-O0BHC4EKQ23MBonilvJrDLmi_3_/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1eiCs-O0BHC4EKQ23MBonilvJrDLmi_3_/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1E2XUK9cvr-hPOrmJ8cc_-qOYO2HzQUaL/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1E2XUK9cvr-hPOrmJ8cc_-qOYO2HzQUaL/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card">
+          <a href="https://drive.google.com/file/d/1XAAwphZFaoUqXcDXxR4ZaEvpwdBHBCPw/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1XAAwphZFaoUqXcDXxR4ZaEvpwdBHBCPw/view?usp=drive_link" alt="">
+          </a>
+        </div>
+
+        <div class="portrait-card featured">
+          <a href="https://drive.google.com/file/d/1Mq3SPTRjLtlGaLLYxkoWC6yPV7GNF7T7/view?usp=drive_link">
+            <img src="https://drive.google.com/file/d/1Mq3SPTRjLtlGaLLYxkoWC6yPV7GNF7T7/view?usp=drive_link" alt="Ate Viel Duckface">
+          </a>
+          <div class="portrait-caption">Ang Paboritong Pose HAHA 😂</div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
